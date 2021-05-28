@@ -22,3 +22,9 @@ class Drawing:
     def drawPixel(position):
         x, y = position
         self.pygameObject.draw.rect(screen, settings.PIXEL_COLOR, self.pygameObject.Rect(x, y, settings.PIXEL_SIZE, settings.PIXEL_SIZE))
+
+    def isInField(position):
+        x, y = position
+        return
+            (x > settings.FIELD_MARGIN_X and x < settings.FIELD_MARGIN_X + settings.FIELD_SIZE) and
+            (y > settings.FIELD_MARGIN_Y and y < settings.FIELD_MARGIN_Y + settings.FIELD_SIZE)

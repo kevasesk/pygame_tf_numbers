@@ -1,10 +1,14 @@
 import pygame
 import settings
 
+from drawing import Drawing
+
 pygame.init()
 pygame.display.set_caption(settings.WINDOW_TITLE)
 screen = pygame.display.set_mode((settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT))
 screen.fill(settings.WINDOW_COLOR)
+myfont = pygame.font.SysFont(settings.FONT_STYLE, settings.FONT_SIZE)
+drawing = Drawing(pygame, screen, myfont)
 done = False
 
 #field
@@ -17,7 +21,7 @@ pygame.draw.rect(screen, settings.FIELD_BACKGROUND_COLOR,
     )
  )
 
-myfont = pygame.font.SysFont(settings.FONT_STYLE, settings.FONT_SIZE)
+
 
 #button1
 pygame.draw.rect(screen, settings.BUTTON_BACKGROUND_COLOR, pygame.Rect(500, 20, settings.BUTTON_WIDTH, settings.BUTTON_HEIGHT))
@@ -37,11 +41,8 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
         if event.type == pygame.MOUSEBUTTONUP:
-            x, y = pygame.mouse.get_pos()
-            if
-                (x > settings.FIELD_MARGIN_X and x < settings.FIELD_MARGIN_X + settings.FIELD_SIZE) and
-                (y > settings.FIELD_MARGIN_Y and y < settings.FIELD_MARGIN_Y + settings.FIELD_SIZE)
-            :
-                pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(x, y, settings.PIXEL_SIZE, settings.PIXEL_SIZE))
+            pos = pygame.mouse.get_pos()
+            if drawing.isInField(pos):
+                pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(pos[0], pos[1], settings.PIXEL_SIZE, settings.PIXEL_SIZE))
 
     pygame.display.flip()
