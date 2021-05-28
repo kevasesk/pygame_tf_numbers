@@ -38,6 +38,10 @@ while not done:
             done = True
         if event.type == pygame.MOUSEBUTTONUP:
             x, y = pygame.mouse.get_pos()
-            pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(x, y, settings.PIXEL_SIZE, settings.PIXEL_SIZE))
+            if
+                (x > settings.FIELD_MARGIN_X and x < settings.FIELD_MARGIN_X + settings.FIELD_SIZE) and
+                (y > settings.FIELD_MARGIN_Y and y < settings.FIELD_MARGIN_Y + settings.FIELD_SIZE)
+            :
+                pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(x, y, settings.PIXEL_SIZE, settings.PIXEL_SIZE))
 
     pygame.display.flip()
