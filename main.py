@@ -25,7 +25,10 @@ while not done:
             done = True
         if event.type == pygame.MOUSEBUTTONDOWN:
             drawing_processing = True
-            drawing.clear(pos, (500, 20))
+            if drawing.isClickOnButton(pos, (500, 20)):
+                drawing.clear()
+            if drawing.isClickOnButton(pos, (500, 80)):
+                drawing.predict()
 
 
         if event.type == pygame.MOUSEBUTTONUP:

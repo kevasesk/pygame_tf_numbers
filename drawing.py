@@ -38,15 +38,34 @@ class Drawing:
         return (x >= settings.FIELD_MARGIN_X and x < settings.FIELD_SIZE + settings.FIELD_MARGIN_X) \
                and (y >= settings.FIELD_MARGIN_Y and y < settings.FIELD_SIZE + settings.FIELD_MARGIN_X)
 
+    def isClickOnButton(self, clickPosition, elementPosition):
+        clickX, clickY = clickPosition
+        elemX, elemY = elementPosition
+        if (clickX > elemX and clickX < elemX + settings.BUTTON_WIDTH) \
+                and (clickY > elemY and clickY < elemY + settings.BUTTON_HEIGHT):
+            return True
+        return False
+
     def calculatePixelPosition(self, position):
         x, y = position
         x = int( (x - settings.FIELD_MARGIN_X) / settings.PIXEL_SIZE) * settings.PIXEL_SIZE + settings.FIELD_MARGIN_X
         y = int( (y - settings.FIELD_MARGIN_X) / settings.PIXEL_SIZE) * settings.PIXEL_SIZE + settings.FIELD_MARGIN_X
         return (x,y)
 
-    def clear(self, clickPosition, elementPosition):
-        clickX, clickY = clickPosition
-        elemX, elemY = elementPosition
-        if (clickX > elemX and clickX < elemX + settings.BUTTON_WIDTH) \
-                and (clickY > elemY and clickY < elemY + settings.BUTTON_HEIGHT):
-            self.drawField()
+    def clear(self):
+        self.drawField()
+
+    def predict(self):
+        result = []
+        for x in range(0, settings.CELLS) :
+            for y in range(0, settings.CELLS):
+                coordX = x * settings.PIXEL_SIZE + settings.FIELD_MARGIN_X + 2
+                coordY = y * settings.PIXEL_SIZE + settings.FIELD_MARGIN_Y + 2
+                print(coordX, coordY)
+                if self.screenObject.get_at((coordY, coordX)) == settings.BLACK:
+                    result.append(1)
+                if self.screenObject.get_at((coordY, coordX)) == settings.WHITE:
+                    result.append(0)
+
+        print(result)
+        pass
