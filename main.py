@@ -10,39 +10,27 @@ screen.fill(settings.WINDOW_COLOR)
 myfont = pygame.font.SysFont(settings.FONT_STYLE, settings.FONT_SIZE)
 drawing = Drawing(pygame, screen, myfont)
 done = False
+drawing_processing = False
 
 #field
-pygame.draw.rect(screen, settings.FIELD_BACKGROUND_COLOR,
-    pygame.Rect(
-        settings.FIELD_MARGIN_X,
-        settings.FIELD_MARGIN_Y,
-        settings.FIELD_SIZE,
-        settings.FIELD_SIZE
-    )
- )
-
-
-
-#button1
-pygame.draw.rect(screen, settings.BUTTON_BACKGROUND_COLOR, pygame.Rect(500, 20, settings.BUTTON_WIDTH, settings.BUTTON_HEIGHT))
-textsurface = myfont.render('Clear', False, settings.BUTTON_TEXT_COLOR)
-screen.blit(textsurface, (580, 30))
-
-#button2
-pygame.draw.rect(screen, settings.BUTTON_BACKGROUND_COLOR, pygame.Rect(500, 80, settings.BUTTON_WIDTH, settings.BUTTON_HEIGHT))
-textsurface = myfont.render('Predict', False, (0, 0, 0))
-screen.blit(textsurface, (580, 90))
-
-#text
-pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(500, 140, 200, 50))
+drawing.drawField()
+drawing.drawButton('Clear', (500, 20))
+drawing.drawButton('Predict', (500, 80))
+drawing.drawText('123', (500, 140))
 
 while not done:
+    pos = pygame.mouse.get_pos()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-        if event.type == pygame.MOUSEBUTTONUP:
-            pos = pygame.mouse.get_pos()
-            if drawing.isInField(pos):
-                pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(pos[0], pos[1], settings.PIXEL_SIZE, settings.PIXEL_SIZE))
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            drawing_processing = True
+            drawing.clear(pos, (500, 20))
 
+
+        if event.type == pygame.MOUSEBUTTONUP:
+            drawing_processing = False
+
+    if drawing.isInField(pos) and drawing_processing:
+        drawing.drawPixel(pos)
     pygame.display.flip()
