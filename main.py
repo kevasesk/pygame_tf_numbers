@@ -20,12 +20,12 @@ pygame.draw.rect(screen, settings.FIELD_BACKGROUND_COLOR,
 myfont = pygame.font.SysFont(settings.FONT_STYLE, settings.FONT_SIZE)
 
 #button1
-pygame.draw.rect(screen, settings.BUTTON_COLOR, pygame.Rect(500, 20, settings.BUTTON_WIDTH, settings.BUTTON_HEIGHT))
-textsurface = myfont.render('Clear', False, (0, 0, 0))
+pygame.draw.rect(screen, settings.BUTTON_BACKGROUND_COLOR, pygame.Rect(500, 20, settings.BUTTON_WIDTH, settings.BUTTON_HEIGHT))
+textsurface = myfont.render('Clear', False, settings.BUTTON_TEXT_COLOR)
 screen.blit(textsurface, (580, 30))
 
 #button2
-pygame.draw.rect(screen, settings.BUTTON_COLOR, pygame.Rect(500, 80, settings.BUTTON_WIDTH, settings.BUTTON_HEIGHT))
+pygame.draw.rect(screen, settings.BUTTON_BACKGROUND_COLOR, pygame.Rect(500, 80, settings.BUTTON_WIDTH, settings.BUTTON_HEIGHT))
 textsurface = myfont.render('Predict', False, (0, 0, 0))
 screen.blit(textsurface, (580, 90))
 
