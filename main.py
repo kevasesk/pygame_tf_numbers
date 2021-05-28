@@ -4,20 +4,28 @@ import settings
 pygame.init()
 pygame.display.set_caption(settings.WINDOW_TITLE)
 screen = pygame.display.set_mode((settings.WINDOW_WIDTH, settings.WINDOW_HEIGHT))
-screen.fill((50,200,50))
+screen.fill(settings.WINDOW_COLOR)
 done = False
 
 #field
-pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(20, 20, settings.FIELD_SIZE, settings.FIELD_SIZE))
+pygame.draw.rect(screen, settings.FIELD_BACKGROUND_COLOR,
+    pygame.Rect(
+        settings.FIELD_MARGIN_X,
+        settings.FIELD_MARGIN_Y,
+        settings.FIELD_SIZE,
+        settings.FIELD_SIZE
+    )
+ )
 
-myfont = pygame.font.SysFont('sans-serif', 30)
+myfont = pygame.font.SysFont(settings.FONT_STYLE, settings.FONT_SIZE)
+
 #button1
-pygame.draw.rect(screen, (200, 200, 200), pygame.Rect(500, 20, 200, 50))
+pygame.draw.rect(screen, settings.BUTTON_COLOR, pygame.Rect(500, 20, settings.BUTTON_WIDTH, settings.BUTTON_HEIGHT))
 textsurface = myfont.render('Clear', False, (0, 0, 0))
 screen.blit(textsurface, (580, 30))
 
 #button2
-pygame.draw.rect(screen, (200, 200, 200), pygame.Rect(500, 80, 200, 50))
+pygame.draw.rect(screen, settings.BUTTON_COLOR, pygame.Rect(500, 80, settings.BUTTON_WIDTH, settings.BUTTON_HEIGHT))
 textsurface = myfont.render('Predict', False, (0, 0, 0))
 screen.blit(textsurface, (580, 90))
 
