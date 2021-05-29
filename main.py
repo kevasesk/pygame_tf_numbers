@@ -1,5 +1,6 @@
 import pygame
 import settings
+import numpy as np
 
 from drawing import Drawing
 
@@ -29,11 +30,15 @@ while not done:
             if drawing.isClickOnButton(pos, (500, 20)):
                 drawing.clear()
             if drawing.isClickOnButton(pos, (500, 80)):
-                drawing.predict()
-            drawing.drawPredictions()
+                predictions = drawing.predict()
+                print(predictions)
+                print(np.argmax(predictions))
+
         if event.type == pygame.MOUSEBUTTONUP:
             drawing_processing = False
+            drawing.drawPredictions()
 
     if drawing.isInField(pos) and drawing_processing:
         drawing.drawBrush(pos)
+
     pygame.display.flip()

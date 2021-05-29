@@ -1,6 +1,6 @@
 #common
 WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
+WINDOW_HEIGHT = 500
 WINDOW_TITLE = 'Numbers'
 WINDOW_COLOR = (50,200,50)
 CELLS = 28
@@ -9,10 +9,11 @@ CELLS = 28
 WHITE = (255, 255, 255, 255)
 BLACK = (0, 0, 0, 255)
 GREY = (200, 200, 200)
+PURPLE = (137, 120, 232)
 
 #pixel
 PIXEL_SIZE = 15
-FONT_STYLE = 'sans-serif'
+FONT_STYLE = 'Verdana'
 FONT_SIZE = 30
 
 #field

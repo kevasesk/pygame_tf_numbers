@@ -29,8 +29,6 @@ def predict(input):
     model = keras.models.load_model('network/keras_memory')
     predictions = model.predict([inputNetwork])
 
-    print(predictions)
-    print(np.argmax(predictions))
     return predictions
 
     #test_index = 65

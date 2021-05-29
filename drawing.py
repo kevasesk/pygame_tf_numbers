@@ -28,7 +28,8 @@ class Drawing:
 
     def drawText(self, title, position):
         x, y = position
-        self.pygameObject.draw.rect(self.screenObject, settings.TEXT_COLOR, self.pygameObject.Rect(x, y, settings.TEXT_WIDTH, settings.TEXT_HEIGHT))
+        textsurface = self.font.render(title, False, settings.BUTTON_TEXT_COLOR)
+        self.screenObject.blit(textsurface, (x, y))
 
     def drawBrush(self, position):
         x, y = self.calculatePixelPosition(position)
@@ -90,4 +91,19 @@ class Drawing:
         return predict(result)
 
     def drawPredictions(self):
-        self.predict()
+        predictions = self.predict()[0]
+        predictions = predictions * 100
+        pixelStep = 25
+        startY = 200
+        self.pygameObject.draw.rect(self.screenObject, settings.WINDOW_COLOR,
+                                    self.pygameObject.Rect(500, startY, 200, pixelStep * 10)
+                                    )
+        i = 0
+        for number in predictions:
+            self.pygameObject.draw.rect(self.screenObject, settings.PURPLE,
+                                        self.pygameObject.Rect(500, i * pixelStep + startY, int(200 * number / 100), 25)
+                                        )
+            self.drawText(str(i) + " : " + str(int(number)) + " %", (500, i * pixelStep + startY))
+
+            i = i + 1
+
