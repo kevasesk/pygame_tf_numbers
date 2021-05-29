@@ -12,11 +12,12 @@ drawing = Drawing(pygame, screen, myfont)
 done = False
 drawing_processing = False
 
-#field
+#init drawing
 drawing.drawField()
 drawing.drawButton('Clear', (500, 20))
 drawing.drawButton('Predict', (500, 80))
-drawing.drawText('123', (500, 140))
+
+#drawing numbers predictions
 
 while not done:
     pos = pygame.mouse.get_pos()
@@ -29,11 +30,10 @@ while not done:
                 drawing.clear()
             if drawing.isClickOnButton(pos, (500, 80)):
                 drawing.predict()
-
-
+            drawing.drawPredictions()
         if event.type == pygame.MOUSEBUTTONUP:
             drawing_processing = False
 
     if drawing.isInField(pos) and drawing_processing:
-        drawing.drawPixel(pos)
+        drawing.drawBrush(pos)
     pygame.display.flip()

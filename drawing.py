@@ -1,4 +1,5 @@
 import settings
+from network.brain import *
 
 class Drawing:
 
@@ -29,9 +30,27 @@ class Drawing:
         x, y = position
         self.pygameObject.draw.rect(self.screenObject, settings.TEXT_COLOR, self.pygameObject.Rect(x, y, settings.TEXT_WIDTH, settings.TEXT_HEIGHT))
 
-    def drawPixel(self, position):
+    def drawBrush(self, position):
         x, y = self.calculatePixelPosition(position)
-        self.pygameObject.draw.rect(self.screenObject, settings.PIXEL_COLOR, self.pygameObject.Rect(x, y, settings.PIXEL_SIZE, settings.PIXEL_SIZE))
+
+        if self.isInField((x, y + settings.PIXEL_SIZE)):
+            self.pygameObject.draw.rect(self.screenObject, settings.BLACK,
+                                        self.pygameObject.Rect(x, y + settings.PIXEL_SIZE, settings.PIXEL_SIZE, settings.PIXEL_SIZE))
+
+        if self.isInField((x, y - settings.PIXEL_SIZE)):
+            self.pygameObject.draw.rect(self.screenObject, settings.BLACK,
+                                    self.pygameObject.Rect(x, y - settings.PIXEL_SIZE, settings.PIXEL_SIZE, settings.PIXEL_SIZE))
+
+        if self.isInField((x + settings.PIXEL_SIZE, y)):
+            self.pygameObject.draw.rect(self.screenObject, settings.BLACK,
+                                    self.pygameObject.Rect(x + settings.PIXEL_SIZE, y, settings.PIXEL_SIZE, settings.PIXEL_SIZE))
+
+        if self.isInField((x - settings.PIXEL_SIZE, y)):
+            self.pygameObject.draw.rect(self.screenObject, settings.BLACK,
+                                    self.pygameObject.Rect(x - settings.PIXEL_SIZE, y, settings.PIXEL_SIZE, settings.PIXEL_SIZE))
+
+        self.pygameObject.draw.rect(self.screenObject, settings.BLACK,
+                                    self.pygameObject.Rect(x, y, settings.PIXEL_SIZE, settings.PIXEL_SIZE))
 
     def isInField(self, position):
         x, y = self.calculatePixelPosition(position)
@@ -61,11 +80,14 @@ class Drawing:
             for y in range(0, settings.CELLS):
                 coordX = x * settings.PIXEL_SIZE + settings.FIELD_MARGIN_X + 2
                 coordY = y * settings.PIXEL_SIZE + settings.FIELD_MARGIN_Y + 2
-                print(coordX, coordY)
                 if self.screenObject.get_at((coordY, coordX)) == settings.BLACK:
-                    result.append(1)
+                    result.append(255)
+                if self.screenObject.get_at((coordY, coordX)) == settings.GREY:
+                    result.append(200)
                 if self.screenObject.get_at((coordY, coordX)) == settings.WHITE:
                     result.append(0)
 
-        print(result)
-        pass
+        return predict(result)
+
+    def drawPredictions(self):
+        self.predict()
